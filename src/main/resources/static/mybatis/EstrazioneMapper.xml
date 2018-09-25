@@ -29,7 +29,7 @@
         	RUOTA = #{descrizioneBreve}
     </select>
 
-    <insert id="insert" parameterType="EstrazioneDto" useGeneratedKeys="true">
+    <insert id="insertOne" parameterType="EstrazioneDto" useGeneratedKeys="true">
         
         <selectKey keyProperty="id" resultType="Long" order="BEFORE">
             SELECT nextVal('ID_ESTRAZIONE_SEQ')
@@ -56,5 +56,30 @@
         	<if test="colonna5 != null"> #{colonna5}</if>
         )
     </insert>
-
+    <!-- 
+    <insert id="insertMore" parameterType="java.util.List" useGeneratedKeys="true">
+        
+        insert into estrazione (
+        	ID,
+        	<if test="dataEstrazione != null"> DATA_ESTRAZIONE,</if>
+        	<if test="ruota != null"> RUOTA,</if>
+        	<if test="colonna1 != null"> COLONNA1,</if>
+        	<if test="colonna2 != null"> COLONNA2,</if>
+        	<if test="colonna3 != null"> COLONNA3,</if>
+        	<if test="colonna4 != null"> COLONNA4,</if>
+        	<if test="colonna5 != null"> COLONNA5</if>
+        ) 
+        values
+        <foreach collection="estrazioni" item="element" index="index" open="(" separator="," close=")" > 
+        	SELECT ID_ESTRAZIONE_SEQ.nextVal from dual,
+        	<if test="dataEstrazione != null"> #{dataEstrazione},</if>
+        	<if test="ruota != null"> #{ruota},</if>
+        	<if test="colonna1 != null"> #{colonna1},</if>
+        	<if test="colonna2 != null"> #{colonna2},</if>
+        	<if test="colonna3 != null"> #{colonna3},</if>
+        	<if test="colonna4 != null"> #{colonna4},</if>
+        	<if test="colonna5 != null"> #{colonna5}</if>
+        </foreach>
+    </insert>
+     -->
 </mapper>

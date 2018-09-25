@@ -13,12 +13,12 @@ public class RuotaFieldSetMapper implements RowMapper<Dto> {
 	@Override
 	public RuotaDto mapRow(ResultSet rs, int rowNum) throws SQLException {
 		
-		RuotaDto lotto = new RuotaDto();
+		RuotaDto ruota = new RuotaDto();
 
-		lotto.setId(rs.getLong(1));
-		lotto.setPrimoUso(rs.getDate(4));
+		ruota.setDescrizioneBreve(rs.getString(1));
+		ruota.setPrimoUso(rs.getDate(2));
 				
-		return lotto;
+		return ruota;
 	}
 
 }

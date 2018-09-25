@@ -6,7 +6,7 @@ import org.develop.app.batch.dto.RuotaDto;
 
 public interface RuotaDao
 {
-    void insertRuota(RuotaDto ruota);
+    void insertOne(RuotaDto ruota);
     List<RuotaDto> findAll();
     List<RuotaDto> find(RuotaDto ruota);
 }

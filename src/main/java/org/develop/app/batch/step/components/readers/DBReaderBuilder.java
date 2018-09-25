@@ -24,7 +24,7 @@ public class DBReaderBuilder implements ReadersInterface<Dto>{
 		
 		MyBatisCursorItemReader<Dto> reader = new MyBatisCursorItemReader<>();
 		reader.setSqlSessionFactory(sqlSessionFactory);
-		reader.setQueryId("com.develop.app.dao."+json.getString("mapperStatement"));
+		reader.setQueryId("org.develop.app.persistence.dao."+json.getString("mapperStatement"));
 		
 		return reader;
 	}

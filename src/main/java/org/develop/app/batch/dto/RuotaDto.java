@@ -15,4 +15,13 @@ public class RuotaDto implements Dto {
 	private String descrizioneBreve;
 	private Date primoUso; 	
 	
+	@Override
+	public String toString() {
+		
+		return this.getId() + " " +
+			   this.getDescrizioneBreve() + " " + 
+			   this.getDescrizione() + " " + 
+			   this.getPrimoUso() + " ";
+	}
+	
 }

@@ -8,7 +8,6 @@ import java.util.List;
 import org.codehaus.jettison.json.JSONObject;
 import org.develop.app.batch.dto.RuotaDto;
 import org.develop.app.batch.dto.interfaces.Dto;
-import org.develop.app.batch.exceptions.SkipException;
 import org.develop.app.batch.step.components.interfaces.ProcessorsInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,19 +55,10 @@ public class RuoteItemProcessorBuilder implements ProcessorsInterface<Dto, Dto> 
 			}
 			
 			RuotaDto ruota = new RuotaDto();
-			ruota.setId(item.getId());			
-			
-			if(!ruoteList.contains(ruota)) {
-				ruota.setPrimoUso(item.getPrimoUso());
-				ruota.setDescrizioneBreve(ruota.getDescrizioneBreve());
-				ruota.setDescrizione(mapRuotaDesc.get(ruota.getDescrizioneBreve()));
-				
-				ruoteList.add(ruota);
-			}
-			else {
-				throw new SkipException();
-			}
-			
+		
+			ruota.setPrimoUso(item.getPrimoUso());
+			ruota.setDescrizioneBreve(item.getDescrizioneBreve());
+			ruota.setDescrizione(mapRuotaDesc.get(item.getDescrizioneBreve()));	
 			
 			return ruota;
 		}

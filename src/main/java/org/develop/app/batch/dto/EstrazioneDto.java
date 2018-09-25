@@ -19,4 +19,15 @@ public class EstrazioneDto implements Dto {
 	private int colonna4;
 	private int colonna5;
 	
+	@Override
+	public String toString() {
+		
+		return this.getDataEstrazione() + " " +
+			   this.getRuota() + " " +
+			   this.getColonna1() + " " +
+			   this.getColonna2() + " " +
+			   this.getColonna3() + " " +
+			   this.getColonna4() + " " +
+			   this.getColonna5();
+	}
 }

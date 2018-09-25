@@ -6,7 +6,8 @@ import org.develop.app.batch.dto.EstrazioneDto;
 
 public interface EstrazioneDao
 {
-    void insertEstrazione(EstrazioneDto estrazione);
+    void insertOne(EstrazioneDto estrazione);
+//    void insertMore(List<EstrazioneDto> estrazioni);
     List<EstrazioneDto> findAll();
     EstrazioneDto findById(Integer idEstrazione);
 }

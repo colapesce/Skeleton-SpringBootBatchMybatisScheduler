@@ -24,8 +24,16 @@
         WHERE 
         	ID = #{ruota.id}
     </select>
+    
+    <select id="findFromEstrazioni" resultMap="RuotaResultMap">
+        SELECT 
+        	RUOTA, MIN(DATA_ESTRAZIONE) 
+        FROM 
+        	ESTRAZIONE
+        GROUP BY RUOTA
+    </select>
 
-    <insert id="insert" parameterType="RuotaDto" useGeneratedKeys="true">
+    <insert id="insertOne" parameterType="RuotaDto" useGeneratedKeys="true">
         
         <selectKey keyProperty="id" resultType="Long" order="BEFORE">
             SELECT nextVal('ID_RUOTA_SEQ')
