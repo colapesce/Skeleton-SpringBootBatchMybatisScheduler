@@ -133,7 +133,7 @@ public class JobFactory {
 				catch(Exception e) {}
 				
 				stepBuilder.reader(reader.build(itemJson.getJSONObject("info")));
-				stepBuilder.listener(new CustomItemReaderListener());
+//				stepBuilder.listener(new CustomItemReaderListener());
 			}
 			
 			if(searchInJson(stepInfo, StepEnums.PROCESSOR) != null) {
@@ -144,7 +144,7 @@ public class JobFactory {
 				ProcessorsInterface<Dto, Dto> processor = processorClass.newInstance();
 				
 				stepBuilder.processor(processor.build(itemJson.getJSONObject("info")));
-				stepBuilder.listener(new CustomItemProcessorListener());
+//				stepBuilder.listener(new CustomItemProcessorListener());
 			}
 			
 			if(searchInJson(stepInfo, StepEnums.WRITER) != null) {
@@ -163,7 +163,7 @@ public class JobFactory {
 				stepBuilder.writer(writer.build(itemJson.getJSONObject("info")));
 				
 				stepBuilder.allowStartIfComplete(itemJson.getJSONObject("info").getBoolean("restartable"));
-				stepBuilder.listener(new CustomItemWriterListener());
+//				stepBuilder.listener(new CustomItemWriterListener());
 			}
 			
 			return stepBuilder.listener(new CustomStepListener()).build();
