@@ -6,14 +6,16 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sql.DataSource;
-
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.codehaus.jettison.json.JSONObject;
 import org.develop.app.batch.dto.JobConfigDto;
 import org.develop.app.batch.dto.StepConfigDto;
 import org.develop.app.batch.dto.interfaces.Dto;
 import org.develop.app.batch.exceptions.NoJobDefException;
+import org.develop.app.batch.listeners.CustomItemProcessorListener;
+import org.develop.app.batch.listeners.CustomItemReaderListener;
+import org.develop.app.batch.listeners.CustomItemWriterListener;
+import org.develop.app.batch.listeners.CustomStepListener;
 import org.develop.app.batch.listeners.JobCompletionNotificationListener;
 import org.develop.app.batch.step.Enums.PkgEnums;
 import org.develop.app.batch.step.Enums.StepEnums;
@@ -90,7 +92,7 @@ public class JobFactory {
 			
 			for(int i=0; i<steps.size(); i++) {
 				if(i==0) {
-					flow.from(steps.get(0));
+					flow.start(steps.get(0));
 				}
 				else {
 					flow.next(steps.get(i));
@@ -131,7 +133,7 @@ public class JobFactory {
 				catch(Exception e) {}
 				
 				stepBuilder.reader(reader.build(itemJson.getJSONObject("info")));
-	//			stepBuilder.listener(listener);
+				stepBuilder.listener(new CustomItemReaderListener());
 			}
 			
 			if(searchInJson(stepInfo, StepEnums.PROCESSOR) != null) {
@@ -142,7 +144,7 @@ public class JobFactory {
 				ProcessorsInterface<Dto, Dto> processor = processorClass.newInstance();
 				
 				stepBuilder.processor(processor.build(itemJson.getJSONObject("info")));
-	//			stepBuilder.listener(listener);
+				stepBuilder.listener(new CustomItemProcessorListener());
 			}
 			
 			if(searchInJson(stepInfo, StepEnums.WRITER) != null) {
@@ -161,10 +163,10 @@ public class JobFactory {
 				stepBuilder.writer(writer.build(itemJson.getJSONObject("info")));
 				
 				stepBuilder.allowStartIfComplete(itemJson.getJSONObject("info").getBoolean("restartable"));
-	//			stepBuilder.listener(listener);
+				stepBuilder.listener(new CustomItemWriterListener());
 			}
 			
-			return stepBuilder.build();
+			return stepBuilder.listener(new CustomStepListener()).build();
 		}
 		else {
 			

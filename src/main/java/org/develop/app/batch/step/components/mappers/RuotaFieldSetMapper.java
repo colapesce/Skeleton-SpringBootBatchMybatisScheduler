@@ -16,7 +16,7 @@ public class RuotaFieldSetMapper implements RowMapper<Dto> {
 		RuotaDto ruota = new RuotaDto();
 
 		ruota.setDescrizioneBreve(rs.getString(1));
-		ruota.setPrimoUso(rs.getDate(2));
+		ruota.setPrimoUtilizzo(rs.getDate(2));
 				
 		return ruota;
 	}

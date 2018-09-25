@@ -27,7 +27,7 @@
     
     <select id="findFromEstrazioni" resultMap="RuotaResultMap">
         SELECT 
-        	RUOTA, MIN(DATA_ESTRAZIONE) 
+        	RUOTA DESCRIZIONE_BREVE, MIN(DATA_ESTRAZIONE) PRIMO_UTILIZZO
         FROM 
         	ESTRAZIONE
         GROUP BY RUOTA
@@ -43,13 +43,13 @@
         	ID,
         	<if test="descrizione != null"> DESCRIZIONE,</if>
         	<if test="descrizioneBreve != null"> DESCRIZIONE_BREVE,</if>
-        	<if test="primoUtilizzo != null"> PRIMO_UTILIZZO,</if>
+        	<if test="primoUtilizzo != null"> PRIMO_UTILIZZO</if>
         ) 
         values (
         	#{id},
-        	<if test="descrizione != null"> #{ruota.descrizione},</if>
-        	<if test="descrizioneBreve != null"> #{ruota.descrizioneBreve},</if>
-        	<if test="primoUtilizzo != null"> #{ruota.primoUtilizzo},</if>
+        	<if test="descrizione != null"> #{descrizione},</if>
+        	<if test="descrizioneBreve != null"> #{descrizioneBreve},</if>
+        	<if test="primoUtilizzo != null"> #{primoUtilizzo},</if>
         )
     </insert>
 

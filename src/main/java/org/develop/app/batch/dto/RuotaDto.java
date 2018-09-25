@@ -13,7 +13,7 @@ public class RuotaDto implements Dto {
 	private Long id;
 	private String descrizione;
 	private String descrizioneBreve;
-	private Date primoUso; 	
+	private Date primoUtilizzo; 	
 	
 	@Override
 	public String toString() {
@@ -21,7 +21,7 @@ public class RuotaDto implements Dto {
 		return this.getId() + " " +
 			   this.getDescrizioneBreve() + " " + 
 			   this.getDescrizione() + " " + 
-			   this.getPrimoUso() + " ";
+			   this.getPrimoUtilizzo();
 	}
 	
 }

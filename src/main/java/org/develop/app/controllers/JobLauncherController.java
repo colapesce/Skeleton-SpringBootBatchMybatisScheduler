@@ -40,7 +40,7 @@ public class JobLauncherController {
 		Date start = new Date();
 		jobLauncher.run(jobFactory.getJob(parseJson.getString(JOB_NAME), jobListener), builder.toJobParameters());
 		
-		log.info("Job " + parseJson.getString(JOB_NAME) + " executed in " + ((new Date()).getTime()-start.getTime())*1000 + "sec");
+		log.info("Job " + parseJson.getString(JOB_NAME) + " executed in " + ((new Date()).getTime()-start.getTime())/1000 + "sec");
 	}
 
 	private JobParametersBuilder extractParameters(JSONObject parseJson) throws Exception {

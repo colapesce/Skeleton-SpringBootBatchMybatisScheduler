@@ -56,7 +56,7 @@ public class RuoteItemProcessorBuilder implements ProcessorsInterface<Dto, Dto> 
 			
 			RuotaDto ruota = new RuotaDto();
 		
-			ruota.setPrimoUso(item.getPrimoUso());
+			ruota.setPrimoUtilizzo(item.getPrimoUtilizzo());
 			ruota.setDescrizioneBreve(item.getDescrizioneBreve());
 			ruota.setDescrizione(mapRuotaDesc.get(item.getDescrizioneBreve()));	
 			
