@@ -1,0 +1,48 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.develop.app.persistence.dao.RuotaDao">
+
+	<resultMap id="RuotaResultMap" type="RuotaDto">
+        <id     property="id" 				column="ID" />
+        <result property="descrizione" 		column="DESCRIZIONE" />
+        <result property="descrizioneBreve" column="DESCRIZIONE_BREVE" />
+        <result property="primoUtilizzo" 	column="PRIMO_UTILIZZO" />
+    </resultMap>
+
+    <select id="findAll" resultMap="RuotaResultMap">
+        SELECT 
+        	ID, DESCRIZIONE, DESCRIZIONE_BREVE, PRIMO_UTILIZZO 
+        FROM 
+        	RUOTA
+    </select>
+
+    <select id="findBy" resultMap="RuotaResultMap" parameterType="RuotaDto">
+        SELECT 
+        	ID, DESCRIZIONE, DESCRIZIONE_BREVE, PRIMO_UTILIZZO 
+        FROM 
+        	RUOTA 
+        WHERE 
+        	ID = #{ruota.id}
+    </select>
+
+    <insert id="insert" parameterType="RuotaDto" useGeneratedKeys="true">
+        
+        <selectKey keyProperty="id" resultType="Long" order="BEFORE">
+            SELECT nextVal('ID_RUOTA_SEQ')
+        </selectKey>
+        
+        insert into ruota (
+        	ID,
+        	<if test="descrizione != null"> DESCRIZIONE,</if>
+        	<if test="descrizioneBreve != null"> DESCRIZIONE_BREVE,</if>
+        	<if test="primoUtilizzo != null"> PRIMO_UTILIZZO,</if>
+        ) 
+        values (
+        	#{id},
+        	<if test="descrizione != null"> #{ruota.descrizione},</if>
+        	<if test="descrizioneBreve != null"> #{ruota.descrizioneBreve},</if>
+        	<if test="primoUtilizzo != null"> #{ruota.primoUtilizzo},</if>
+        )
+    </insert>
+
+</mapper>

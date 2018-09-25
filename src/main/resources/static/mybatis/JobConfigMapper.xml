@@ -1,0 +1,43 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.develop.app.persistence.dao.JobConfigDao">
+
+	<resultMap id="JobConfigResultMap" type="JobConfigDto">
+        <id     	property="id" 			column="JOB_ID" />
+        <result 	property="name" 		column="JOB_NAME" />
+        <result 	property="parameters" 	column="JOB_PARAMETERS" />
+        <result 	property="insertTs" 	column="JOB_INSERT_TS" />
+        <collection property="steps" 	ofType="StepConfigDto" resultMap="StepResultMap" columnPrefix="STEP_" />
+    </resultMap>
+    
+    <resultMap id="StepResultMap" type="StepConfigDto">
+        <id     	property="id" 				column="ID" />
+        <result 	property="name" 			column="NAME" />
+        <result 	property="config" 			column="CONFIG" />
+        <result 	property="executionOrder" 	column="EXECUTION_ORDER" />
+        <result 	property="type"		 		column="TYPE" />
+        <result 	property="insertTs" 		column="INSERT_TS" />
+    </resultMap>
+
+    <select id="findAll" resultMap="JobConfigResultMap">
+        SELECT 
+        	J.ID JOB_ID, J.NAME JOB_NAME, J.PARAMETERS JOB_PARAMETERS, J.INSERT_TS JOB_INSERT_TS,
+        	S.ID STEP_ID, S.NAME STEP_NAME, S.CONFIG STEP_CONFIG, S.EXECUTION_ORDER STEP_EXECUTION_ORDER, S.TYPE STEP_TYPE, S.INSERT_TS STEP_INSERT_TS 
+        FROM 
+        	JOB_CONFIG J, STEP_CONFIG S
+        WHERE 
+        	J.ID = S.JOB_ID AND    
+    </select>
+
+    <select id="findBy" resultMap="JobConfigResultMap" parameterType="JobConfigDto">
+        SELECT 
+        	J.ID JOB_ID, J.NAME JOB_NAME, J.PARAMETERS JOB_PARAMETERS, J.INSERT_TS JOB_INSERT_TS,
+        	S.ID STEP_ID, S.NAME STEP_NAME, S.CONFIG STEP_CONFIG, S.EXECUTION_ORDER STEP_EXECUTION_ORDER, S.TYPE STEP_TYPE, S.INSERT_TS STEP_INSERT_TS 
+        FROM 
+        	JOB_CONFIG J, STEP_CONFIG S
+        WHERE 
+        	J.ID = S.JOB_ID AND
+        	J.NAME = #{name}
+    </select>
+
+</mapper>

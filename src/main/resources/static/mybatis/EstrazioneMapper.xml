@@ -1,0 +1,60 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.develop.app.persistence.dao.EstrazioneDao">
+
+	<resultMap id="EstrazioneResultMap" type="EstrazioneDto">
+        <id     property="id" 				column="ID" />
+        <result property="ruota" 			column="RUOTA" />
+        <result property="dataEstrazione" 	column="DATA_ESTRAZIONE" />
+        <result property="colonna1" 		column="COLONNA1" />
+        <result property="colonna2" 		column="COLONNA2" />
+        <result property="colonna3" 		column="COLONNA3" />
+        <result property="colonna4" 		column="COLONNA4" />
+        <result property="colonna5" 		column="COLONNA5" />
+    </resultMap>
+
+    <select id="findAll" resultMap="EstrazioneResultMap">
+        SELECT 
+        	ID, RUOTA, DATA_ESTRAZIONE, COLONNA1, COLONNA2, COLONNA3, COLONNA4, COLONNA5 
+        FROM 
+        	ESTRAZIONE
+    </select>
+
+    <select id="findBy" resultMap="EstrazioneResultMap" parameterType="EstrazioneDto">
+        SELECT 
+        	ID, RUOTA, DATA_ESTRAZIONE, COLONNA1, COLONNA2, COLONNA3, COLONNA4, COLONNA5 
+        FROM 
+        	ESTRAZIONE 
+        WHERE 
+        	RUOTA = #{descrizioneBreve}
+    </select>
+
+    <insert id="insert" parameterType="EstrazioneDto" useGeneratedKeys="true">
+        
+        <selectKey keyProperty="id" resultType="Long" order="BEFORE">
+            SELECT nextVal('ID_ESTRAZIONE_SEQ')
+        </selectKey>
+        
+        insert into estrazione (
+        	ID,
+        	<if test="dataEstrazione != null"> DATA_ESTRAZIONE,</if>
+        	<if test="ruota != null"> RUOTA,</if>
+        	<if test="colonna1 != null"> COLONNA1,</if>
+        	<if test="colonna2 != null"> COLONNA2,</if>
+        	<if test="colonna3 != null"> COLONNA3,</if>
+        	<if test="colonna4 != null"> COLONNA4,</if>
+        	<if test="colonna5 != null"> COLONNA5</if>
+        ) 
+        values (
+        	#{id},
+        	<if test="dataEstrazione != null"> #{dataEstrazione},</if>
+        	<if test="ruota != null"> #{ruota},</if>
+        	<if test="colonna1 != null"> #{colonna1},</if>
+        	<if test="colonna2 != null"> #{colonna2},</if>
+        	<if test="colonna3 != null"> #{colonna3},</if>
+        	<if test="colonna4 != null"> #{colonna4},</if>
+        	<if test="colonna5 != null"> #{colonna5}</if>
+        )
+    </insert>
+
+</mapper>
